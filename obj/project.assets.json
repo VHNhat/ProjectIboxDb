@@ -1,0 +1,105 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "iBoxDB/3.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/iBoxDB.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/iBoxDB.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "iBoxDB/3.1.0": {
+      "sha512": "M7YfnyaQ7L73bfYYFvWbh0fWJ5MNhu47STwwkHS3TAzRyRNUhZ2nIGfjz2ePYc9pjlt9CzZ/cimtQiVCt4hsEw==",
+      "type": "package",
+      "path": "iboxdb/3.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/iBoxDB31.cs",
+        "iboxdb.3.1.0.nupkg.sha512",
+        "iboxdb.nuspec",
+        "lib/net20/iBoxDB.NET2.dll",
+        "lib/netstandard2.0/iBoxDB.dll"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETCoreApp,Version=v3.1": [
+      "iBoxDB >= 3.1.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\vohoa\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "E:\\Code Life\\UIT\\CSDLPT\\iboxDb\\ProjectIboxDb\\ProjectIboxDb.csproj",
+      "projectName": "ProjectIboxDb",
+      "projectPath": "E:\\Code Life\\UIT\\CSDLPT\\iboxDb\\ProjectIboxDb\\ProjectIboxDb.csproj",
+      "packagesPath": "C:\\Users\\vohoa\\.nuget\\packages\\",
+      "outputPath": "E:\\Code Life\\UIT\\CSDLPT\\iboxDb\\ProjectIboxDb\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\vohoa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "netcoreapp3.1"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "netcoreapp3.1": {
+        "targetAlias": "netcoreapp3.1",
+        "dependencies": {
+          "iBoxDB": {
+            "target": "Package",
+            "version": "[3.1.0, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

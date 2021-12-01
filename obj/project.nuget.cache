@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "RhmpHIgAFdEsE2DNJ84zbCPyHW3Jsr7d9KviQfZT7sxIbakGGLpkAmulZD0gztbrfLUOsdsIv+vm61TYXyDk5w==",
+  "success": true,
+  "projectFilePath": "E:\\Code Life\\UIT\\CSDLPT\\iboxDb\\ProjectIboxDb\\ProjectIboxDb.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\vohoa\\.nuget\\packages\\iboxdb\\3.1.0\\iboxdb.3.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}
