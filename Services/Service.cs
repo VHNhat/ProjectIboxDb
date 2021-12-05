@@ -1,5 +1,6 @@
 ﻿using IBoxDB.LocalServer;
 using ProjectIboxDb.Models;
+using ProjectIboxDb.Sockets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,117 +19,136 @@ namespace ProjectIboxDb.Services
             Console.WriteLine("Enter table: ");
             Console.WriteLine("1. Account ");
             Console.WriteLine("2. Role ");
+            Console.Write("Choice: ");
             var choice = int.Parse(Console.ReadLine());
             return choice;
         }
         public void Insert(DB.AutoBox box)
         {
-            var choice = Menu();
-            switch (choice)
+            try
             {
-                case 1:
-                    Console.WriteLine("Enter account: ");
-                    Console.Write("Username: ");
-                    string username = Console.ReadLine();
-                    Console.Write("Password: ");
-                    string password = Console.ReadLine();
-                    Console.Write("Role Id: ");
-                    int roleId = int.Parse(Console.ReadLine());
-                    using (var cube = box.Cube())
-                    {
-                        cube["Account"].Insert(new Account()
+                var choice = Menu();
+                switch (choice)
+                {
+                    case 1:
+                        Console.WriteLine("Enter account: ");
+                        Console.Write("Username: ");
+                        string username = Console.ReadLine();
+                        Console.Write("Password: ");
+                        string password = Console.ReadLine();
+                        Console.Write("Role Id: ");
+                        int roleId = int.Parse(Console.ReadLine());
+                        using (var cube = box.Cube())
                         {
-                            Id = cube.NewId(),
-                            Username = username,
-                            Password = password,
-                            RoleId = roleId
-                        });
-                        var result = cube.Commit();
-                        Console.WriteLine(result);
-                    }
-                    break;
-                case 2:
-                    Console.WriteLine("Enter role: ");
-                    Console.Write("Role name: ");
-                    string roleName = Console.ReadLine();
-                    Console.Write("Description: ");
-                    string description = Console.ReadLine();
-                    using (var cube = box.Cube())
-                    {
-                        cube["Role"].Insert(new Role()
+                            cube["Account"].Insert(new Account()
+                            {
+                                Id = cube.NewId(),
+                                Username = username,
+                                Password = password,
+                                RoleId = roleId
+                            });
+                            var result = cube.Commit();
+                            Console.WriteLine(result);
+                        }
+                        break;
+                    case 2:
+                        Console.WriteLine("Enter role: ");
+                        Console.Write("Role name: ");
+                        string roleName = Console.ReadLine();
+                        Console.Write("Description: ");
+                        string description = Console.ReadLine();
+                        using (var cube = box.Cube())
                         {
-                            Id = cube.NewId(),
-                            RoleName = roleName,
-                            Description = description
-                        });
-                        var result = cube.Commit();
-                        Console.WriteLine(result);
-                    }
-                    break;
-                default:
-                    break;
+                            cube["Role"].Insert(new Role()
+                            {
+                                Id = cube.NewId(),
+                                RoleName = roleName,
+                                Description = description
+                            });
+                            var result = cube.Commit();
+                            Console.WriteLine(result);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            } catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
-            
-            
         }
+
         public void Update(DB.AutoBox box)
         {
-            var choice = Menu();
-            switch (choice)
+            try
             {
-                case 1:
-                    Console.WriteLine("Enter account: ");
-                    Console.Write("Id: ");
-                    long AccountId = int.Parse(Console.ReadLine());
-                    Console.Write("Username: ");
-                    string username = Console.ReadLine();
-                    Console.Write("Password: ");
-                    string password = Console.ReadLine();
-                    Console.Write("Role Id: ");
-                    int accountRoleId = int.Parse(Console.ReadLine());
-                    var account = box.Get<Account>("Account", AccountId);
-                    account.Username = username;
-                    account.Password = password;
-                    account.RoleId = accountRoleId;
-                    box.Update("Account", account);
-                    break;
-                case 2:
-                    Console.WriteLine("Enter role: ");
-                    Console.Write("Id: ");
-                    long roleId = int.Parse(Console.ReadLine());
-                    Console.Write("Role name: ");
-                    string roleName = Console.ReadLine();
-                    Console.Write("Description: ");
-                    string description = Console.ReadLine();
-                    var role = box.Get<Role>("Role", roleId);
-                    role.RoleName = roleName;
-                    role.Description = description;
-                    box.Update("Role", role);
-                    break;
-                default:
-                    break;
-            }
-        }
-        public void Delete(DB.AutoBox box)
-        {
-            var choice = Menu();
-            long id;
-            switch (choice)
+                var choice = Menu();
+                switch (choice)
+                {
+                    case 1:
+                        Console.WriteLine("Enter account: ");
+                        Console.Write("Id: ");
+                        long AccountId = int.Parse(Console.ReadLine());
+                        Console.Write("Username: ");
+                        string username = Console.ReadLine();
+                        Console.Write("Password: ");
+                        string password = Console.ReadLine();
+                        Console.Write("Role Id: ");
+                        int accountRoleId = int.Parse(Console.ReadLine());
+                        var account = box.Get<Account>("Account", AccountId);
+                        account.Username = username;
+                        account.Password = password;
+                        account.RoleId = accountRoleId;
+                        box.Update("Account", account);
+                        break;
+                    case 2:
+                        Console.WriteLine("Enter role: ");
+                        Console.Write("Id: ");
+                        long roleId = int.Parse(Console.ReadLine());
+                        Console.Write("Role name: ");
+                        string roleName = Console.ReadLine();
+                        Console.Write("Description: ");
+                        string description = Console.ReadLine();
+                        var role = box.Get<Role>("Role", roleId);
+                        role.RoleName = roleName;
+                        role.Description = description;
+                        box.Update("Role", role);
+                        break;
+                    default:
+                        break;
+                }
+            } catch(Exception ex)
             {
-                case 1:
-                    Console.Write("Id: ");
-                    id = int.Parse(Console.ReadLine());
-                    box.Delete("Account", id);
-                    break;
-                case 2:
-                    Console.Write("Id: ");
-                    id = int.Parse(Console.ReadLine());
-                    box.Delete("Role", id);
-                    break;
-                default:
-                    break;
+                Console.WriteLine(ex.Message);
             }
             
+        }
+
+        public void Delete(DB.AutoBox box)
+        {
+            try
+            {
+                var choice = Menu();
+                long id;
+                switch (choice)
+                {
+                    case 1:
+                        Console.Write("Id: ");
+                        id = int.Parse(Console.ReadLine());
+                        box.Delete("Account", id);
+                        break;
+                    case 2:
+                        Console.Write("Id: ");
+                        id = int.Parse(Console.ReadLine());
+                        box.Delete("Role", id);
+                        break;
+                    default:
+                        break;
+                }
+            } catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
         public void Select(DB.AutoBox box)
         {
