@@ -1,4 +1,5 @@
 ﻿using IBoxDB.LocalServer;
+using IBoxDB.LocalServer.Replication;
 using ProjectIboxDb.Models;
 using ProjectIboxDb.Sockets;
 using System;
@@ -23,7 +24,7 @@ namespace ProjectIboxDb.Services
             var choice = int.Parse(Console.ReadLine());
             return choice;
         }
-        public void Insert(DB.AutoBox box)
+        public int Insert(DB.AutoBox box)
         {
             try
             {
@@ -49,8 +50,9 @@ namespace ProjectIboxDb.Services
                             });
                             var result = cube.Commit();
                             Console.WriteLine(result);
+                            if (result == CommitResult.OK) return 1;
+                            return 0;
                         }
-                        break;
                     case 2:
                         Console.WriteLine("Enter role: ");
                         Console.Write("Role name: ");
@@ -67,18 +69,20 @@ namespace ProjectIboxDb.Services
                             });
                             var result = cube.Commit();
                             Console.WriteLine(result);
+                            if (result == CommitResult.OK) return 1;
+                            return 0;
                         }
-                        break;
                     default:
-                        break;
+                        return 0;
                 }
             } catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                return 0;
             }
         }
 
-        public void Update(DB.AutoBox box)
+        public bool Update(DB.AutoBox box)
         {
             try
             {
@@ -99,8 +103,7 @@ namespace ProjectIboxDb.Services
                         account.Username = username;
                         account.Password = password;
                         account.RoleId = accountRoleId;
-                        box.Update("Account", account);
-                        break;
+                        return box.Update("Account", account);
                     case 2:
                         Console.WriteLine("Enter role: ");
                         Console.Write("Id: ");
@@ -112,19 +115,19 @@ namespace ProjectIboxDb.Services
                         var role = box.Get<Role>("Role", roleId);
                         role.RoleName = roleName;
                         role.Description = description;
-                        box.Update("Role", role);
-                        break;
+                        return box.Update("Role", role);
                     default:
-                        break;
+                        return false;
                 }
             } catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                return false;
             }
             
         }
 
-        public void Delete(DB.AutoBox box)
+        public bool Delete(DB.AutoBox box)
         {
             try
             {
@@ -135,21 +138,21 @@ namespace ProjectIboxDb.Services
                     case 1:
                         Console.Write("Id: ");
                         id = int.Parse(Console.ReadLine());
-                        box.Delete("Account", id);
-                        break;
+                        return box.Delete("Account", id);
                     case 2:
                         Console.Write("Id: ");
                         id = int.Parse(Console.ReadLine());
-                        box.Delete("Role", id);
-                        break;
+                        return box.Delete("Role", id);
                     default:
-                        break;
+                        return false;
                 }
             } catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                return false;
             }
         }
+
         public void Select(DB.AutoBox box)
         {
 
@@ -255,6 +258,22 @@ namespace ProjectIboxDb.Services
                     break;
             }
 
+        }
+
+        public void Replicate(DB.AutoBox box,DB.AutoBox slave_box, long masterAddress)
+        {
+            var recycler = (MemoryBoxRecycler)box.GetDatabase().GetBoxRecycler();
+            lock (recycler.Packages)
+            {
+                foreach (var p in recycler.Packages)
+                {
+                    if (p.Socket.SourceAddress == masterAddress)
+                    {
+                        (new BoxData(p.OutBox)).SlaveReplicate(slave_box.GetDatabase()).Assert();
+                    }
+                }
+                recycler.Packages.Clear();
+            }
         }
     }
 }
