@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Code Life\\UIT\\CSDLPT\\iboxDb\\ProjectIboxDb\\ProjectIboxDb.csproj": {}
+    "E:\\Code Life\\UIT\\CSDLPT\\ProjectIboxDb\\ProjectIboxDb.csproj": {}
   },
   "projects": {
-    "E:\\Code Life\\UIT\\CSDLPT\\iboxDb\\ProjectIboxDb\\ProjectIboxDb.csproj": {
+    "E:\\Code Life\\UIT\\CSDLPT\\ProjectIboxDb\\ProjectIboxDb.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Code Life\\UIT\\CSDLPT\\iboxDb\\ProjectIboxDb\\ProjectIboxDb.csproj",
+        "projectUniqueName": "E:\\Code Life\\UIT\\CSDLPT\\ProjectIboxDb\\ProjectIboxDb.csproj",
         "projectName": "ProjectIboxDb",
-        "projectPath": "E:\\Code Life\\UIT\\CSDLPT\\iboxDb\\ProjectIboxDb\\ProjectIboxDb.csproj",
+        "projectPath": "E:\\Code Life\\UIT\\CSDLPT\\ProjectIboxDb\\ProjectIboxDb.csproj",
         "packagesPath": "C:\\Users\\vohoa\\.nuget\\packages\\",
-        "outputPath": "E:\\Code Life\\UIT\\CSDLPT\\iboxDb\\ProjectIboxDb\\obj\\",
+        "outputPath": "E:\\Code Life\\UIT\\CSDLPT\\ProjectIboxDb\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
           "C:\\Users\\vohoa\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"

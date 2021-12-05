@@ -1,5 +1,6 @@
 ﻿using IBoxDB.LocalServer;
 using ProjectIboxDb.Models;
+using ProjectIboxDb.Sockets;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace ProjectIboxDb.Services
             Console.WriteLine("Enter table: ");
             Console.WriteLine("1. Account ");
             Console.WriteLine("2. Role ");
+            Console.Write("Choice: ");
             var choice = int.Parse(Console.ReadLine());
             return choice;
         }
@@ -44,6 +46,7 @@ namespace ProjectIboxDb.Services
                             RoleId = roleId
                         });
                         var result = cube.Commit();
+                        
                         Console.WriteLine(result);
                     }
                     break;
@@ -90,7 +93,6 @@ namespace ProjectIboxDb.Services
                     account.Username = username;
                     account.Password = password;
                     account.RoleId = accountRoleId;
-                    box.Update("Account", account);
                     break;
                 case 2:
                     Console.WriteLine("Enter role: ");
