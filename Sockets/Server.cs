@@ -27,7 +27,7 @@ namespace ProjectIboxDb.Sockets
         {
             try
             {
-                WriteLine("-----------------------------");
+                WriteLine("-------------------------------------------------");
                 MessageCurrent = "Starting...";
                 sock.Listen(1000);
                 MessageCurrent = "It Works and looks for files";
@@ -64,13 +64,13 @@ namespace ProjectIboxDb.Sockets
                 clientSock.Close();
                 MessageCurrent = $"The file {fName} was Received";
                 WriteLine(MessageCurrent);
-                WriteLine("-----------------------------");
+                WriteLine("-------------------------------------------------");
             }
             catch
             {
                 MessageCurrent = "Error! File not received";
                 WriteLine(MessageCurrent);
-                WriteLine("-----------------------------");
+                WriteLine("-------------------------------------------------");
             }
         }
 

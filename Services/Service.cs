@@ -92,7 +92,7 @@ namespace ProjectIboxDb.Services
                     case 1:
                         Console.WriteLine("Enter account: ");
                         Console.Write("Id: ");
-                        long AccountId = int.Parse(Console.ReadLine());
+                        long AccountId = long.Parse(Console.ReadLine());
                         Console.Write("Username: ");
                         string username = Console.ReadLine();
                         Console.Write("Password: ");
@@ -107,7 +107,7 @@ namespace ProjectIboxDb.Services
                     case 2:
                         Console.WriteLine("Enter role: ");
                         Console.Write("Id: ");
-                        long roleId = int.Parse(Console.ReadLine());
+                        long roleId = long.Parse(Console.ReadLine());
                         Console.Write("Role name: ");
                         string roleName = Console.ReadLine();
                         Console.Write("Description: ");
@@ -124,7 +124,6 @@ namespace ProjectIboxDb.Services
                 Console.WriteLine(ex.Message);
                 return false;
             }
-            
         }
 
         public bool Delete(DB.AutoBox box)
@@ -137,11 +136,11 @@ namespace ProjectIboxDb.Services
                 {
                     case 1:
                         Console.Write("Id: ");
-                        id = int.Parse(Console.ReadLine());
+                        id = long.Parse(Console.ReadLine());
                         return box.Delete("Account", id);
                     case 2:
                         Console.Write("Id: ");
-                        id = int.Parse(Console.ReadLine());
+                        id = long.Parse(Console.ReadLine());
                         return box.Delete("Role", id);
                     default:
                         return false;
@@ -155,7 +154,6 @@ namespace ProjectIboxDb.Services
 
         public void Select(DB.AutoBox box)
         {
-
             var choice = Menu();
             Console.Write("Write your query: ");
             var query = Console.ReadLine();
@@ -256,23 +254,6 @@ namespace ProjectIboxDb.Services
                     break;
                 default:
                     break;
-            }
-
-        }
-
-        public void Replicate(DB.AutoBox box,DB.AutoBox slave_box, long masterAddress)
-        {
-            var recycler = (MemoryBoxRecycler)box.GetDatabase().GetBoxRecycler();
-            lock (recycler.Packages)
-            {
-                foreach (var p in recycler.Packages)
-                {
-                    if (p.Socket.SourceAddress == masterAddress)
-                    {
-                        (new BoxData(p.OutBox)).SlaveReplicate(slave_box.GetDatabase()).Assert();
-                    }
-                }
-                recycler.Packages.Clear();
             }
         }
     }

@@ -15,6 +15,7 @@ namespace ProjectIboxDb
         public static long slaveAddress;
         static void Main(string[] args)
         {
+            Console.Clear();
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             Console.InputEncoding = System.Text.Encoding.UTF8;
             Service service = new Service();
@@ -24,9 +25,11 @@ namespace ProjectIboxDb
             DB.AutoBox slave_box = null;
             switch (option)
             {
+                // Slave
                 case 1:
                     slave_box = InitAndCreateSlaveBox(slaveAddress);
                     break;
+                // Master
                 case 2:
                     box = InitAndCreateAutoBox(masterAddress);
                     slave_box = InitAndCreateSlaveBox(slaveAddress);
@@ -38,6 +41,7 @@ namespace ProjectIboxDb
 
             while (loop)
             {
+                Console.Clear();
                 switch (option)
                 {
                     case 1:
@@ -50,7 +54,8 @@ namespace ProjectIboxDb
                                 service.Select(slave_box);
                                 break;
                             case 2:
-                                Distribute(option, masterAddress, slave_box);
+                                Distribute(option, masterAddress,box, slave_box);
+                                Main(args);
                                 return;
                             case 3:
                                 option = Setting();
@@ -83,7 +88,8 @@ namespace ProjectIboxDb
                                 service.Select(box);
                                 break;
                             case 5:
-                                Distribute(option, masterAddress, box);
+                                Distribute(option, masterAddress, box, slave_box);
+                                Main(args);
                                 return;
                             case 6:
                                 option = Setting();
@@ -112,7 +118,7 @@ namespace ProjectIboxDb
         
         private static int Setting()
         {
-            Console.WriteLine("-----------------Setting-----------------");
+            Console.WriteLine("---------------------Setting---------------------");
             Console.WriteLine("Thiết lập Master/Slave");
             Console.WriteLine("1.Slave");
             Console.WriteLine("2.Master");
@@ -133,25 +139,26 @@ namespace ProjectIboxDb
             }
             return option;
         }
-        private static void Distribute(int option, long masterAdrress, DB.AutoBox box)
+        private static void Distribute(int option, long masterAdrress, DB.AutoBox box, DB.AutoBox slave_box)
         {
             Console.WriteLine("-----------------Distribute Data-----------------");
-            Console.Write("Enter DB address: ");
-            masterAdrress = long.Parse(Console.ReadLine());
             // Slave
             if (option == 1)
             {
-                box.GetDatabase().Dispose();
+                slave_box.GetDatabase().Dispose();
                 Server server = new Server();
                 server.StartServer();
             }
             // Master
             else if (option == 2)
             {
+                Console.Write("Enter Master DB address: ");
+                masterAdrress = long.Parse(Console.ReadLine());
                 Client client = new Client();
                 Console.Write("Enter server IP address: ");
                 string ipa = Console.ReadLine();
                 box.GetDatabase().Dispose();
+                slave_box.GetDatabase().Dispose();
                 Client.SendFile($"E:/Code Life/UIT/CSDLPT/iboxDb/ProjectIboxDb/bin/Debug/netcoreapp3.1/ibox/db_{masterAdrress}.box", ipa);
             }
         }

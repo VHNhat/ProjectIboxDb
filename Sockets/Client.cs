@@ -28,7 +28,7 @@ namespace ProjectIboxDb.Sockets
                 }
                 byte[] fNameByte = Encoding.ASCII.GetBytes(fName);
 
-                WriteLine("-----------------------------");
+                WriteLine("---------------------------------------------");
                 MessageCurrent = "Buffering...";
                 WriteLine(MessageCurrent);
                 byte[] fileData = File.ReadAllBytes(path + fName);
@@ -47,13 +47,13 @@ namespace ProjectIboxDb.Sockets
                 sock.Close();
                 MessageCurrent = $"The file {fName} was sent...";
                 WriteLine(MessageCurrent);
-                WriteLine("-----------------------------");
+                WriteLine("---------------------------------------------");
                 return clientData.Length;
             }
             catch (Exception ex)
             {
                 WriteLine(ex.Message);
-                WriteLine("-----------------------------");
+                WriteLine("---------------------------------------------");
                 return -1;
             }
         }
